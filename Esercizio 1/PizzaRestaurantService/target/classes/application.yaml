@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: PIZZA-RESTAURANT-SERVICE
+  datasource:
+    # Uso del server H2 come file. In questo modo rimane sbloccato.
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/data/PizzaRestaurantServiceDB;AUTO_SERVER=TRUE
+    username: cb
+    password: cb
+  jpa:
+    # Connettore del database.
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# Swagger UI
+# http://localhost:8080/api/swagger-ui/index.html
+# 192.168.1.160:8080/api/swagger-ui/index.html
+
+# H2-Console
+# http://localhost:8080/api/h2-console
+# 192.168.1.160:8080/api/h2-console
+# Inserire come db:
+# jdbc:h2:file:~/data/PizzaRestaurantServiceDB;AUTO_SERVER=TRUE
+# Username e Password sono entrambe cb.
+
+
