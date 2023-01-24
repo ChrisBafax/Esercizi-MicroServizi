@@ -5,6 +5,6 @@ import com.myrestaurant.store.PizzaService.model.RestaurantIds;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface RestaurantIdsMapper extends  GenericMapper<RestaurantIds, RestaurantIdsDTO> {
+public interface RestaurantIdsMapper extends GenericMapper<RestaurantIds, RestaurantIdsDTO> {
 
 }

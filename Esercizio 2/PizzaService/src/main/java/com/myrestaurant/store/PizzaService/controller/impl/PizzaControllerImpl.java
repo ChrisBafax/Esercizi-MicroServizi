@@ -62,7 +62,7 @@ public class PizzaControllerImpl implements PizzaController {
     }
 
     @Override
-    @GetMapping( "/restaurant/{id}")
+    @GetMapping("/restaurant/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public List<PizzaDTO> findByRestaurantId(@PathVariable Long id) {
         List<Pizza> pizzas = pizzaService.findByRestaurantId(id);
