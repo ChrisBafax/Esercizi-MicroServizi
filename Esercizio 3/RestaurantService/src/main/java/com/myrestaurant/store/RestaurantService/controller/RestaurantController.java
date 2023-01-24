@@ -31,5 +31,5 @@ public interface RestaurantController {
     List<Object> getPizzasByRestaurantId(@PathVariable("id") Long id);
 
     @ApiOperation("Add pizzas to a restaurant")
-    public List<Object> addPizzaToRestaurant(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
+    List<Object> addPizzaToRestaurant(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
 }

@@ -2,9 +2,16 @@ package com.myrestaurant.store.pizzarestaurantservice;
 
 import com.myrestaurant.store.pizzarestaurantservice.dao.PizzaRepository;
 import com.myrestaurant.store.pizzarestaurantservice.dao.RestaurantRepository;
+import com.myrestaurant.store.pizzarestaurantservice.model.Driver;
+import com.myrestaurant.store.pizzarestaurantservice.model.Pizza;
+import com.myrestaurant.store.pizzarestaurantservice.model.Restaurant;
+import com.myrestaurant.store.pizzarestaurantservice.model.Topping;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 class PizzaRestaurantServiceApplicationTests {
@@ -20,7 +27,6 @@ class PizzaRestaurantServiceApplicationTests {
     void populateDBTP() {
         // To use remove the comment around the code below.
         // List of Toppings
-        /*
         Topping mozzarella = Topping.builder().name("Mozzarella locale").build();
         Topping pomodoroLocale = Topping.builder().name("Pomodoro locale").build();
         Topping basilico = Topping.builder().name("Basilico").build();
@@ -51,10 +57,8 @@ class PizzaRestaurantServiceApplicationTests {
         Topping aliciDiCetara = Topping.builder().name("Alici di Cetara").build();
         Topping zesteDiLimoneDiCetraro = Topping.builder().name("Zeste di Limone di Cetraro").build();
         Topping stracciatella = Topping.builder().name("Stracciatella").build();
-        */
 
         // List of pizzas
-        /*
         Pizza margherita = Pizza.builder().name("Margherita").favourite(true).toppings(Set.of(mozzarella, pomodoroLocale, basilico)).build();
         Pizza quattroFormaggi = Pizza.builder().name("4 Formaggi").toppings(Set.of(mozzarella, gorgonzola, provolone, granaPadano)).build();
         Pizza pizzaDAsila = Pizza.builder().name("Pizzad'Asila").toppings(Set.of(fiorDiLatte, patateSilane, funghiPorciniDellaSila, lardoDiMaialeNeroSilano)).build();
@@ -64,7 +68,6 @@ class PizzaRestaurantServiceApplicationTests {
         Pizza pizzaEFigliata = Pizza.builder().name("Pizza e Figliata").toppings(Set.of(figliata, mortadella, cremaDiGorgonzolaEPistacchio)).build();
         Pizza pizzaBufalaDiMare = Pizza.builder().name("Pizza bufala di mare").toppings(Set.of(fiorDiLatte, pacchetelleGialle, bottargaDiMuggine, aliciDiCetara, zesteDiLimoneDiCetraro, stracciatella, basilico)).build();
         pizzaRepository.saveAll(List.of(margherita, quattroFormaggi, pizzaDAsila, pizzaSacroEProfano, pizzaDAccarezzare, pizzaDAlessandro, pizzaEFigliata, pizzaBufalaDiMare));
-        */
     }
 
     // Use to populate DataBase with Drivers and Restaurants
@@ -72,20 +75,17 @@ class PizzaRestaurantServiceApplicationTests {
     void populateDBDR() {
         // To use remove the comment around the code below.
         // List of drivers
-        /*
         Driver driver1 = Driver.builder().name("Driver1").build();
         Driver driver2 = Driver.builder().name("Driver2").build();
         Driver driver3 = Driver.builder().name("Driver3").build();
         Driver driver4 = Driver.builder().name("Driver4").build();
         Driver driver5 = Driver.builder().name("Driver5").build();
         Driver driver6 = Driver.builder().name("Driver6").build();
-        */
+
         // List of restaurants
-        /*
         Restaurant vogliaDiPizza = Restaurant.builder().name("Voglia di pizza").address("Via Roma").city("Roma").drivers(Set.of(driver1, driver2, driver3)).build();
         Restaurant pizzaAGoGo = Restaurant.builder().name("Pizza a GoGo").address("Via Milano").city("Milano").drivers(Set.of(driver4, driver5, driver6)).build();
         restaurantRepository.saveAll(List.of(vogliaDiPizza, pizzaAGoGo));
-        */
     }
 
 }
