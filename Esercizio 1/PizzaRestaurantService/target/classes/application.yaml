@@ -37,4 +37,9 @@ server:
 # jdbc:h2:file:~/data/PizzaRestaurantServiceDB;AUTO_SERVER=TRUE
 # Username e Password sono entrambe cb.
 
+# Query to get Pizza and Restaurant
+# SELECT R.NAME AS RESTAURANT, P.NAME AS PIZZZA
+# FROM RESTAURANTS_PIZZAS AS RP, RESTAURANTS AS R, PIZZAS AS P
+# WHERE P.PIZZA_ID=RP.PIZZA_ID AND R.RESTAURANT_ID=RP.RESTAURANT_ID;
+
 
