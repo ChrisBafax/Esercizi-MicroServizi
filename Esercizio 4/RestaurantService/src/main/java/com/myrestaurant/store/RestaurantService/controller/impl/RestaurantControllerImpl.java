@@ -74,10 +74,12 @@ public class RestaurantControllerImpl implements RestaurantController {
     public List<Object> getPizzasByRestaurantId(@PathVariable("id") Long id) {
         RestTemplate restTemplate = new RestTemplate();
         String uri = pizzaServiceUrl + "/" + id;
-        return List.of(Objects.requireNonNull(
+        List<Object> result = List.of(Objects.requireNonNull(
                 restTemplate.getForObject(
                         uri,
                         Object[].class)));
+        
+        return result;
     }
 
     @Override
