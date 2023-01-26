@@ -29,7 +29,8 @@ server:
 app:
   pizza-service-url: http://localhost:9090/api/pizzas/restaurant
   rabbitmq:
-    routingkey: q.add-pizzas-to-restaurant
+    add-pizzas-routingkey: q.add-pizzas-to-restaurant
+    pizzas-added-routingkey: q.pizzas-added-to-restaurant
 
 # Swagger UI
 # http://localhost:9091/api/swagger-ui/index.html
