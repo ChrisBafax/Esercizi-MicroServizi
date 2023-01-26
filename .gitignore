@@ -5,6 +5,7 @@ Esercizio 1/**/target/
 Esercizio 2/**/target/
 Esercizio 3/**/target/
 Esercizio 4/**/target/
+Esercizio 5/**/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -38,7 +39,6 @@ build/
 .vscode/
 
 ### MacOS invisible files ###
-.DS_Store
 .DS_Store
 Esercizio 1/.DS_Store
 Esercizio 2/.DS_Store
