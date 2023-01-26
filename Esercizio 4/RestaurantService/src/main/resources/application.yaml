@@ -31,6 +31,7 @@ app:
   rabbitmq:
     add-pizzas-routingkey: q.add-pizzas-to-restaurant
     pizzas-added-routingkey: q.pizzas-added-to-restaurant
+    notify-pizzas-added-routingkey: q.notify-pizzas-added-to-restaurant
 
 # Swagger UI
 # http://localhost:9091/api/swagger-ui/index.html

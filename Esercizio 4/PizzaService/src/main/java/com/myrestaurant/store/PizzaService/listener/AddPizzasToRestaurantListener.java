@@ -22,5 +22,6 @@ public class AddPizzasToRestaurantListener {
     @RabbitListener(queues = "${app.rabbitmq.add-pizzas-routingkey}")
     public void addPizzasToRestaurant(List<RestaurantIdsDTO> restaurantIdsDTOS) {
         pizzaService.addPizzasToRestaurant(restaurantIdsMapper.asEntityList(restaurantIdsDTOS));
+        log.info("Added pizzas to restaurant.");
     }
 }

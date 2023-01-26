@@ -18,15 +18,12 @@ public class NotificationListener {
 
     private final SMSService smsService;
 
-    @RabbitListener(queues = "${app.rabbitmq.pizzas-added-routingkey}")
-    public void onAddPizzasToRestaurant(List<Object> pizzas) {
-        String message = "Added no. " + (pizzas.size()/47) + " pizzas to restaurant.";
+    @RabbitListener(queues = "${app.rabbitmq.notify-pizzas-added-routingkey}")
+    public void onNotifyPizzasAddedToRestaurant(String message) {
         log.info("Into onAddPizzasToRestaurant method");
-        log.info("Received Message: " + message);
         emailService.sendMessage(message);
         smsService.sendMessage(message);
         log.info("Finished.");
-        System.out.println("Received Message: " + message);
     }
 
 }

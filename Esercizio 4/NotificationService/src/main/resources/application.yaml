@@ -4,7 +4,7 @@ spring:
 
 app:
   rabbitmq:
-    pizzas-added-routingkey: q.pizzas-added-to-restaurant
+    notify-pizzas-added-routingkey: q.notify-pizzas-added-to-restaurant
 
 server:
   port: 9092

@@ -17,7 +17,7 @@ public class PizzasToRestaurantAddedListener {
         log.info("Into onPizzasToRestaurantAdded method. -> Now do everything!");
 
         for(Object pizza : pizzas) {
-            log.info("Pizza: " + pizza.toString() + " added to restaurant!");
+            log.info("Pizza -> {} ", pizza.toString());
         }
 
     }
