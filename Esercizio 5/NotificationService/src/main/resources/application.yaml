@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: NOTIFICATION_SERVICE
+
+app:
+  rabbitmq:
+    notify-pizzas-added-routingkey: q.notify-pizzas-added-to-restaurant
+
+server:
+  port: 9092
