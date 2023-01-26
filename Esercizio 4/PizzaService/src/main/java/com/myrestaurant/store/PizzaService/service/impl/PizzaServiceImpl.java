@@ -6,6 +6,8 @@ import com.myrestaurant.store.PizzaService.model.Pizza;
 import com.myrestaurant.store.PizzaService.model.RestaurantIds;
 import com.myrestaurant.store.PizzaService.service.PizzaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,11 @@ public class PizzaServiceImpl implements PizzaService {
     private final PizzaRepository pizzaRepository;
 
     private final RestaurantIdsRepository restaurantIdsRepository;
+
+    private final RabbitTemplate rabbitTemplate;
+
+    @Value("${app.rabbitmq.pizzas-added-routingkey}")
+    private String pizzasAddedRoutingKey;
 
     @Override
     public Pizza save(Pizza entity) {
@@ -73,6 +80,9 @@ public class PizzaServiceImpl implements PizzaService {
             pizzas.add(pizzaRepository.findById(el.getPizzaId()).get());
         }
         restaurantIdsRepository.saveAll(restaurantIds);
+        // Send pizzas to RabbitMQ
+        // Asynchronous communication
+        rabbitTemplate.convertAndSend("", pizzasAddedRoutingKey, pizzas);
         return pizzas;
     }
 

@@ -31,6 +31,11 @@ server:
   servlet:
     context-path: /api
 
+app:
+  rabbitmq:
+    add-pizzas-routingkey: q.add-pizzas-to-restaurant
+    pizzas-added-routingkey: q.pizzas-added-to-restaurant
+
 # Swagger UI
 # http://localhost:9090/api/swagger-ui/index.html
 # 192.168.1.160:9090/api/swagger-ui/index.html
