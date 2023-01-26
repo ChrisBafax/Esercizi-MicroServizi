@@ -7,4 +7,11 @@ app:
     notify-pizzas-added-routingkey: q.notify-pizzas-added-to-restaurant
 
 server:
-  port: 9092
+  port: 0
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
