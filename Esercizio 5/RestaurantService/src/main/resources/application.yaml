@@ -28,7 +28,7 @@ server:
     context-path: /api
 
 app:
-  pizza-service-url: http://localhost:9090/api/pizzas/restaurant
+  pizza-service-url: http://localhost:8080/api/pizzas/restaurant
   rabbitmq:
     add-pizzas-routingkey: q.add-pizzas-to-restaurant
     pizzas-added-routingkey: q.pizzas-added-to-restaurant

@@ -4,7 +4,16 @@ spring:
   cloud:
     gateway:
       routes:
-        -
+        - uri: lb://PIZZA-SERVICE
+          predicates:
+            - Path=/api/pizzas/**, /api/toppings/**
+        - uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/api/restaurants/**, /api/drivers/**
+# The gateway service is configured to route requests to the PizzaService and the RestaurantService.
+# If not mentioned otherwise, requests to other Services will be rejected.
+# The uri indicates the service name, lb stands for load balancer.
+# The predicates indicate the path that the gateway service will accept.
 
 server:
   port: 8080
