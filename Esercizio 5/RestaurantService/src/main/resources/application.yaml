@@ -23,6 +23,7 @@ spring:
 
 server:
   port: 0
+  # Using a random port to avoid conflicts with other instances of the service.
   servlet:
     context-path: /api
 

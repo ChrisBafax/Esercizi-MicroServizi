@@ -8,6 +8,7 @@ app:
 
 server:
   port: 0
+  # Using a random port to avoid conflicts with other instances of the service.
 
 eureka:
   client:
