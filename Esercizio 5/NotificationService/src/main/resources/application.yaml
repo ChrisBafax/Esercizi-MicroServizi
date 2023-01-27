@@ -1,18 +1,11 @@
 spring:
   application:
     name: NOTIFICATION-SERVICE
-
-app:
-  rabbitmq:
-    notify-pizzas-added-routingkey: q.notify-pizzas-added-to-restaurant
-
-server:
-  port: 0
-  # Using a random port to avoid conflicts with other instances of the service.
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+  config:
+    import: optional:configserver:http://localhost:8888/config
+  profiles:
+    active: sms
+  cloud:
+    config:
+      name: notification-service
+# Import the properties from the ConfigService.

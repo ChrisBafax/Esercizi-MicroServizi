@@ -5,15 +5,15 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Documents/Documenti Chris/Lavoro/NTT Data/Best Engage/Accademy/Esercizi Microservizi/Repository/Esercizi-MicroServizi/Esercizio 5/ConfigRepo
+          #uri: file://${user.home}\Documents\Java\project_microservices
+          uri: https://github.com/ChrisBafax/PizzaRestaurantProperties.git
+          #propriet� per cui il server si copia la cartella di configurazione,
+          #cos� nel caso il server va giu non ha problemi a riscaricare la configurazione
           clone-on-start: true
-# The path of the uri is a local file repository.
-# The clone-on-start property is set to true in order to clone the repository on start up.
-# This increases the startup time and the overall performance of the application.
+          skip-ssl-validation: true
+          force-pull: true
 
 server:
   port: 8888
   servlet:
     context-path: /config
-# Default port for config server is 8888.
-# Default context path for config server is /config.

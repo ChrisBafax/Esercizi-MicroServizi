@@ -1,60 +1,9 @@
 spring:
   application:
     name: PIZZA-SERVICE
-  datasource:
-    # Uso del server H2 come file. In questo modo rimane sbloccato.
-    #    driver-class-name: org.h2.Driver
-    #    url: jdbc:h2:file:~/data/PizzaServiceDB;AUTO_SERVER=TRUE
-    #    username: sa
-    #    password: sa
-    # Uso del server MySQL
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/PizzaServiceDB
-    username: root
-    password:
-  jpa:
-    # Connettore del database.
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: update
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-
-server:
-  port: 0
-  # Using a random port to avoid conflicts with other instances of the service.
-  servlet:
-    context-path: /api
-
-app:
-  rabbitmq:
-    add-pizzas-routingkey: q.add-pizzas-to-restaurant
-    pizzas-added-routingkey: q.pizzas-added-to-restaurant
-    notify-pizzas-added-routingkey: q.notify-pizzas-added-to-restaurant
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-
-# Swagger UI
-# http://localhost:9090/api/swagger-ui/index.html
-# 192.168.1.160:9090/api/swagger-ui/index.html
-
-# H2-Console
-# http://localhost:9090/api/h2-console
-# 192.168.1.160:9090/api/h2-console
-# Inserire come db:
-# jdbc:h2:file:~/data/PizzaServiceDB
-# Username e Password sono entrambe sa.
-
-
-
+  config:
+    import: optional:configserver:http://localhost:8888/config
+  cloud:
+    config:
+      name: pizza-service
+# Import the properties from the ConfigService.
