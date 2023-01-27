@@ -78,17 +78,30 @@ public class RestaurantControllerImpl implements RestaurantController {
                 restTemplate.getForObject(
                         uri,
                         Object[].class)));
+        // Doesn't work
+//        List<Object> result = pizzaServiceProxyClient.getPizzasByRestaurantId(id);
         return result;
     }
 
     @Override
     @PostMapping("/addPizzas")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Object> addPizzaToRestaurant(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS) {
+    @ResponseStatus(HttpStatus.CREATED)
+    // Doesn't work
+//    @CircuitBreaker(name = "addPizzasToRestaurant", fallbackMethod = "addPizzasToRestaurantFallback")
+//    @Retry(name = "retryAddPizzasToRestaurant")
+    public List<Object> addPizzaToRestaurant(List<RestaurantIdsDTO> restaurantIdsDTOS) {
+        // Sync call
         // RestTemplate restTemplate = new RestTemplate();
         // List<Object> result = List.of(Objects.requireNonNull(restTemplate.postForObject(pizzaServiceUrl, restaurantIdsDTOS,Object[].class)));
+        // Async call
         restaurantService.addPizzasToRestaurant(restaurantIdsDTOS);
+        // Doesn't work
+        // List<Object> result = pizzaServiceProxyClient.addPizzasToRestaurant(restaurantIdsDTOS);
         return null;
     }
+
+//    public List<Object> addPizzasToRestaurantFallback(Exception e) {
+//        return null;
+//    }
 
 }

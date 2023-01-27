@@ -4,6 +4,7 @@ import com.myrestaurant.store.RestaurantService.dto.RestaurantDTO;
 import com.myrestaurant.store.RestaurantService.dto.RestaurantIdsDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -32,4 +33,8 @@ public interface RestaurantController {
 
     @ApiOperation("Add pizzas to a restaurant")
     List<Object> addPizzaToRestaurant(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
+
+//    Does not work
+//    @ApiOperation("Add pizzas to a restaurant fallback")
+//    List<Object> addPizzasToRestaurantFallback(Exception e);
 }
