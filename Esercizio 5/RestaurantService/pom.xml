@@ -138,6 +138,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <name>com.myrestaurant.store/restaurant-service</name>
+                    </image>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

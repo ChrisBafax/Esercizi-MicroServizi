@@ -25,7 +25,7 @@ public class RestaurantControllerImpl implements RestaurantController {
     private final RestaurantMapper restaurantMapper;
 
     // No usage at the moment.
-    public final PizzaServiceProxyController pizzaServiceProxyClient;
+    // public final PizzaServiceProxyController pizzaServiceProxyClient;
 
     @Value("${app.pizza-service-url}")
     private String pizzaServiceUrl;

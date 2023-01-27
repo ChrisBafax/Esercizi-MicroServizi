@@ -46,6 +46,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>com.myrestaurant.store/discovery-service</name>
+                    </image>
+                </configuration>
             </plugin>
         </plugins>
     </build>
