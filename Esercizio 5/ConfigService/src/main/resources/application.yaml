@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: CONFIG-SERVICE
+  cloud:
+    config:
+      server:
+        git:
+          uri:
+
+server:
+  port: 8888
+# Default port for config server is 8888.

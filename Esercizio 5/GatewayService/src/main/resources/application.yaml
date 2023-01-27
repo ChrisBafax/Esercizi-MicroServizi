@@ -11,13 +11,14 @@ spring:
           predicates:
             - Path=/api/restaurants/**, /api/drivers/**
 # The gateway service is configured to route requests to the PizzaService and the RestaurantService.
-# If not mentioned otherwise, requests to other Services will be rejected.
+# If not mentioned in the routes, requests to other Services will be rejected.
 # The uri indicates the service name, lb stands for load balancer.
 # The predicates indicate the path that the gateway service will accept.
+# There are other predicates that can be used as well.
 
 server:
   port: 8080
-  # Use of port 8080 for the gateway service.
+# Use of port 8080 for the gateway service.
 
 eureka:
   client:
