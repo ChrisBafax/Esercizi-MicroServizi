@@ -6,5 +6,11 @@ spring:
   cloud:
     config:
       name: pizza-service
+  profiles:
+    active: prod
 # Import the properties from the ConfigService.
 # Forcing the name to look for in the ConfigService with the property spring.cloud.config.name.
+# Use the profile prod to get the properties from the file pizza-service-prod.yaml.
+# This uses the h2-database.
+# Use the profile default to get the properties from the file pizza-service.yaml.
+# This uses the MySQL database.
