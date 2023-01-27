@@ -5,13 +5,14 @@ spring:
     config:
       server:
         git:
-          #uri: file://${user.home}\Documents\Java\project_microservices
           uri: https://github.com/ChrisBafax/PizzaRestaurantProperties.git
-          #propriet� per cui il server si copia la cartella di configurazione,
-          #cos� nel caso il server va giu non ha problemi a riscaricare la configurazione
           clone-on-start: true
           skip-ssl-validation: true
           force-pull: true
+          # Using repository from GitHub.
+          # Cloning the repository on start.
+          # Skipping SSL validation.
+          # Forcing pull.
 
 server:
   port: 8888

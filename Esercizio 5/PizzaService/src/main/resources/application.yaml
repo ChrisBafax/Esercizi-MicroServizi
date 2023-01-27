@@ -7,3 +7,4 @@ spring:
     config:
       name: pizza-service
 # Import the properties from the ConfigService.
+# Forcing the name to look for in the ConfigService with the property spring.cloud.config.name.
