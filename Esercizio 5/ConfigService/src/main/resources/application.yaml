@@ -5,8 +5,15 @@ spring:
     config:
       server:
         git:
-          uri:
+          uri: file://${user.home}/Documents/Documenti Chris/Lavoro/NTT Data/Best Engage/Accademy/Esercizi Microservizi/Repository/Esercizi-MicroServizi/Esercizio 5/ConfigRepo
+          clone-on-start: true
+# The path of the uri is a local file repository.
+# The clone-on-start property is set to true in order to clone the repository on start up.
+# This increases the startup time and the overall performance of the application.
 
 server:
   port: 8888
+  servlet:
+    context-path: /config
 # Default port for config server is 8888.
+# Default context path for config server is /config.
