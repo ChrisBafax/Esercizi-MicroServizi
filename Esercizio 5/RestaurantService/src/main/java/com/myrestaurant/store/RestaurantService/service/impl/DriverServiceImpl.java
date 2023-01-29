@@ -45,8 +45,15 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Driver update(Driver entity, Long id) {
         Optional<Driver> optionalDriver = findById(id);
+        // Check for non updated fields
         if (optionalDriver.isPresent()) {
-            return save(entity);
+            if (entity.getName() != null) {
+                optionalDriver.get().setName(entity.getName());
+            }
+            if (entity.getRestaurants() != null) {
+                optionalDriver.get().setRestaurants(entity.getRestaurants());
+            }
+            return save(optionalDriver.get());
         }
         return null;
     }

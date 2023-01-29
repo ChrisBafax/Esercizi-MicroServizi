@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Profile("prod")
 public class DataSourceConfigProd {
 
-        public DataSourceConfigProd() {
-            System.out.println("I'm in prod profile and I'm into DataSourceConfigProd.");
-        }
+    public DataSourceConfigProd() {
+        System.out.println("I'm in prod profile and I'm into DataSourceConfigProd.");
+    }
 }

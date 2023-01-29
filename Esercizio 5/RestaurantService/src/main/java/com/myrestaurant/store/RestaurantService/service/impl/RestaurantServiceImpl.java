@@ -9,8 +9,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -56,19 +58,49 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant update(Restaurant entity, Long id) {
         Optional<Restaurant> optionalRestaurant = findById(id);
+        // Check for non updated fields
         if (optionalRestaurant.isPresent()) {
-            return save(entity);
+            if (entity.getAddress() != null) {
+                optionalRestaurant.get().setAddress(entity.getAddress());
+            }
+            if (entity.getName() != null) {
+                optionalRestaurant.get().setName(entity.getName());
+            }
+            if (entity.getCity() != null) {
+                optionalRestaurant.get().setCity(entity.getCity());
+            }
+            if (entity.getDrivers() != null) {
+                optionalRestaurant.get().setDrivers(entity.getDrivers());
+            }
+            return save(optionalRestaurant.get());
         }
         return null;
     }
 
     @Override
-    public void addPizzasToRestaurant(List<RestaurantIdsDTO> restaurantIdsDTOS) {
-        // Sync call
-        // List<Object> result = List.of(Objects.requireNonNull(restTemplate.postForObject(pizzaServiceUrl, restaurantIdsDTOS,Object[].class)));
-        // rabbitTemplate.convertAndSend("", addPizzasToRestaurantRoutingKey,"Added no. " + result.size() + " pizzas.");
-
+    public void addPizzasToRestaurantAsync(List<RestaurantIdsDTO> restaurantIdsDTOS) {
         // Async call
         rabbitTemplate.convertAndSend("", addPizzasToRestaurantRoutingKey, restaurantIdsDTOS);
     }
+
+    @Override
+    public void addPizzasToRestaurantSync(List<RestaurantIdsDTO> restaurantIdsDTOS) {
+        // Sync call
+        RestTemplate restTemplate = new RestTemplate();
+        List<Object> result = List.of(Objects.requireNonNull(restTemplate.postForObject(pizzaServiceUrl, restaurantIdsDTOS, Object[].class)));
+    }
+
+    @Override
+    public List<Object> getPizzasByRestaurantId(Long id) {
+        // Sync call
+        RestTemplate restTemplate = new RestTemplate();
+        String uri = pizzaServiceUrl + "/" + id;
+        List<Object> result = List.of(Objects.requireNonNull(
+                restTemplate.getForObject(
+                        uri,
+                        Object[].class)));
+        return result;
+    }
+
+
 }

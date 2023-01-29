@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Profile({"prod", "dev"})
 public class DataSourceConfigMix {
 
-        public DataSourceConfigMix() {
-            System.out.println("I'm in prod or dev profile and I'm into DataSourceConfigMix.");
-        }
+    public DataSourceConfigMix() {
+        System.out.println("I'm in prod or dev profile and I'm into DataSourceConfigMix.");
+    }
 }

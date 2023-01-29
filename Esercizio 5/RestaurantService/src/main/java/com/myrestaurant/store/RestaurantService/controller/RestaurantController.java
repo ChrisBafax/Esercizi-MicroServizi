@@ -31,14 +31,14 @@ public interface RestaurantController {
     List<Object> getPizzasByRestaurantId(@PathVariable("id") Long id);
 
     @ApiOperation("Add pizzas to a restaurant")
-    List<Object> addPizzaToRestaurant(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
+    List<Object> addPizzaToRestaurantSync(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
 
     @ApiOperation("Add pizzas to a restaurant fallback")
-    List<Object> addPizzasToRestaurantFallback(Exception e);
+    List<Object> addPizzasToRestaurantSyncFallback(Exception e);
 
     @ApiOperation("Get pizzas from a restaurant fallback")
     List<Object> getPizzasToRestaurantFallback(Exception e);
 
     @ApiOperation("Add pizzas to a restaurant Async call")
-    List<Object> addPizzaToRestaurantASync(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
+    List<Object> addPizzaToRestaurantAsync(@RequestBody List<RestaurantIdsDTO> restaurantIdsDTOS);
 }

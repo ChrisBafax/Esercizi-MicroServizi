@@ -62,8 +62,15 @@ public class PizzaServiceImpl implements PizzaService {
     @Override
     public Pizza update(Pizza entity, Long id) {
         Optional<Pizza> optionalPizza = findById(id);
+        // Check for non updated fields
         if (optionalPizza.isPresent()) {
-            return save(entity);
+            if (entity.getName() != null) {
+                optionalPizza.get().setName(entity.getName());
+            }
+            if (entity.getToppings() != null) {
+                optionalPizza.get().setToppings(entity.getToppings());
+            }
+            return save(optionalPizza.get());
         }
         return null;
     }

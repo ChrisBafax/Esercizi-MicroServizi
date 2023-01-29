@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface RestaurantService extends GenericService<Restaurant, Long> {
 
-    void addPizzasToRestaurant(List<RestaurantIdsDTO> restaurantIdsDTO);
+    void addPizzasToRestaurantAsync(List<RestaurantIdsDTO> restaurantIdsDTO);
+
+    void addPizzasToRestaurantSync(List<RestaurantIdsDTO> restaurantIdsDTOS);
+
+    List<Object> getPizzasByRestaurantId(Long id);
 
 }

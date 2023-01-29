@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Profile("dev")
 public class DataSourceConfigDev {
 
-        public DataSourceConfigDev() {
-            System.out.println("I'm in dev profile and I'm into DataSourceConfigDev.");
-        }
+    public DataSourceConfigDev() {
+        System.out.println("I'm in dev profile and I'm into DataSourceConfigDev.");
+    }
 }

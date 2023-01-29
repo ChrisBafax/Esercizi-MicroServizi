@@ -49,6 +49,4 @@ public class Pizza implements Serializable {
     )
     @JsonIgnore
     private Set<Topping> toppings = new HashSet<>();
-
 }
-

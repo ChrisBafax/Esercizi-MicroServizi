@@ -45,8 +45,15 @@ public class ToppingServiceImpl implements ToppingService {
     @Override
     public Topping update(Topping entity, Long id) {
         Optional<Topping> optionalTopping = findById(id);
+        // Check for non updated fields
         if (optionalTopping.isPresent()) {
-            return save(entity);
+            if (entity.getName() != null) {
+                optionalTopping.get().setName(entity.getName());
+            }
+            if (entity.getPizzas() != null) {
+                optionalTopping.get().setPizzas(entity.getPizzas());
+            }
+            return save(optionalTopping.get());
         }
         return null;
     }
