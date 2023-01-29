@@ -4,6 +4,7 @@ import com.myrestaurant.store.PizzaService.dto.PizzaDTO;
 import com.myrestaurant.store.PizzaService.dto.RestaurantIdsDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,16 +17,16 @@ public interface PizzaController {
     PizzaDTO createPizza(@RequestBody PizzaDTO pizzaDTO);
 
     @ApiOperation("Find pizza by ID")
-    PizzaDTO findPizzaById(@PathVariable("id") Long id);
+    ResponseEntity<?> findPizzaById(@PathVariable("id") Long id);
 
     @ApiOperation("Delete pizza by ID")
-    void deletePizzaById(@PathVariable("id") Long id);
+    ResponseEntity<?> deletePizzaById(@PathVariable("id") Long id);
 
     @ApiOperation("Find all pizzas")
-    List<PizzaDTO> findAllPizzas();
+    ResponseEntity<?> findAllPizzas();
 
     @ApiOperation("Update a pizza")
-    PizzaDTO updatePizza(@RequestBody PizzaDTO pizzaDTO, @PathVariable("id") Long id);
+    ResponseEntity<?> updatePizza(@RequestBody PizzaDTO pizzaDTO, @PathVariable("id") Long id);
 
     @ApiOperation("Find by restaurant ID")
     List<PizzaDTO> findByRestaurantId(@PathVariable("id") Long id);

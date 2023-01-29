@@ -15,31 +15,31 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DriverServiceImpl implements DriverService {
 
-    private final DriverRepository repository;
+    private final DriverRepository driverRepository;
 
     @Override
     public Driver save(Driver entity) {
-        return repository.save(entity);
+        return driverRepository.save(entity);
     }
 
     @Override
     public List<Driver> save(List<Driver> entities) {
-        return repository.saveAll(entities);
+        return driverRepository.saveAll(entities);
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        driverRepository.deleteById(id);
     }
 
     @Override
     public Optional<Driver> findById(Long id) {
-        return repository.findById(id);
+        return driverRepository.findById(id);
     }
 
     @Override
     public List<Driver> findAll() {
-        return repository.findAll();
+        return driverRepository.findAll();
     }
 
     @Override
@@ -56,5 +56,10 @@ public class DriverServiceImpl implements DriverService {
             return save(optionalDriver.get());
         }
         return null;
+    }
+
+    @Override
+    public boolean checkId(Long id) {
+        return driverRepository.existsById(id);
     }
 }

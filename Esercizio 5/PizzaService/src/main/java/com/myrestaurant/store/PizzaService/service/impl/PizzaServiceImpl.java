@@ -101,4 +101,8 @@ public class PizzaServiceImpl implements PizzaService {
         return pizzas;
     }
 
+    @Override
+    public boolean checkId(Long id) {
+        return pizzaRepository.existsById(id);
+    }
 }

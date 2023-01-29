@@ -9,7 +9,7 @@ public interface RestaurantService extends GenericService<Restaurant, Long> {
 
     void addPizzasToRestaurantAsync(List<RestaurantIdsDTO> restaurantIdsDTO);
 
-    void addPizzasToRestaurantSync(List<RestaurantIdsDTO> restaurantIdsDTOS);
+    List<Object> addPizzasToRestaurantSync(List<RestaurantIdsDTO> restaurantIdsDTOS);
 
     List<Object> getPizzasByRestaurantId(Long id);
 

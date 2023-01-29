@@ -15,31 +15,31 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ToppingServiceImpl implements ToppingService {
 
-    private final ToppingRepository repository;
+    private final ToppingRepository toppingRepository;
 
     @Override
     public Topping save(Topping entity) {
-        return repository.save(entity);
+        return toppingRepository.save(entity);
     }
 
     @Override
     public List<Topping> save(List<Topping> entities) {
-        return repository.saveAll(entities);
+        return toppingRepository.saveAll(entities);
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        toppingRepository.deleteById(id);
     }
 
     @Override
     public Optional<Topping> findById(Long id) {
-        return repository.findById(id);
+        return toppingRepository.findById(id);
     }
 
     @Override
     public List<Topping> findAll() {
-        return repository.findAll();
+        return toppingRepository.findAll();
     }
 
     @Override
@@ -56,5 +56,10 @@ public class ToppingServiceImpl implements ToppingService {
             return save(optionalTopping.get());
         }
         return null;
+    }
+
+    @Override
+    public boolean checkId(Long id) {
+        return toppingRepository.existsById(id);
     }
 }

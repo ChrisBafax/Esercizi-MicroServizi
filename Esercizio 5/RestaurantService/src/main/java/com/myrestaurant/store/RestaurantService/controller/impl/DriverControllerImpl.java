@@ -7,6 +7,7 @@ import com.myrestaurant.store.RestaurantService.model.Driver;
 import com.myrestaurant.store.RestaurantService.service.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,33 +32,49 @@ public class DriverControllerImpl implements DriverController {
 
     @Override
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public DriverDTO findDriverById(@PathVariable("id") Long id) {
-        Driver driver = driverService.findById(id).orElse(null);
-        return driverMapper.asDTO(driver);
+    public ResponseEntity<?> findDriverById(@PathVariable("id") Long id) {
+        if (!driverService.checkId(id)) {
+            return new ResponseEntity<>("The driver you are trying to find is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            Driver driver = driverService.findById(id).orElse(null);
+            DriverDTO dto = driverMapper.asDTO(driver);
+            return new ResponseEntity<>(dto, HttpStatus.FOUND);
+        }
     }
 
     @Override
     @DeleteMapping(path = {"/{id}/delete", "/{id}"})
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteDriverById(@PathVariable("id") Long id) {
-        driverService.deleteById(id);
+    public ResponseEntity<?> deleteDriverById(@PathVariable("id") Long id) {
+        if (!driverService.checkId(id)) {
+            return new ResponseEntity<>("The driver you are trying to delete is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            driverService.deleteById(id);
+            return new ResponseEntity<>("Driver deleted successfully.", HttpStatus.OK);
+        }
     }
 
     @Override
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
-    public List<DriverDTO> findAllDriver() {
-        // Find all driver from service and map as DTO.
-        return driverMapper.asDTOList(driverService.findAll());
+    public ResponseEntity<?> findAllDriver() {
+        if (driverService.findAll().isEmpty()) {
+            return new ResponseEntity<>("There are no drivers in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            // Find all driver from service and map as DTO.
+            List<DriverDTO> dtoList = driverMapper.asDTOList(driverService.findAll());
+            return new ResponseEntity<>(dtoList, HttpStatus.FOUND);
+        }
     }
 
     @Override
     @PutMapping(path = {"/{id}/update", "/{id}"})
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public DriverDTO updateDriver(@RequestBody DriverDTO driverDTO, @PathVariable("id") Long id) {
-        Driver driver = driverMapper.asEntity(driverDTO);
-        // Update driver from service and map it as DTO.
-        return driverMapper.asDTO(driverService.update(driver, id));
+    public ResponseEntity<?> updateDriver(@RequestBody DriverDTO driverDTO, @PathVariable("id") Long id) {
+        if (!driverService.checkId(id)) {
+            return new ResponseEntity<>("The driver you are trying to update is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            Driver driver = driverMapper.asEntity(driverDTO);
+            // Update driver from service and map it as DTO.
+            DriverDTO dto = driverMapper.asDTO(driverService.update(driver, id));
+            return new ResponseEntity<>(dto, HttpStatus.ACCEPTED);
+        }
     }
 }

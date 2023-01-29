@@ -7,6 +7,7 @@ import com.myrestaurant.store.PizzaService.model.Topping;
 import com.myrestaurant.store.PizzaService.service.ToppingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,17 +32,26 @@ public class ToppingControllerImpl implements ToppingController {
 
     @Override
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public ToppingDTO findToppingById(@PathVariable("id") Long id) {
-        Topping topping = toppingService.findById(id).orElse(null);
-        return toppingMapper.asDTO(topping);
+    public ResponseEntity<?> findToppingById(@PathVariable("id") Long id) {
+        if (!toppingService.checkId(id)) {
+            return new ResponseEntity<>("The topping you are looking for is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            // Find topping by id from service and map it as DTO.
+            ToppingDTO dto = toppingMapper.asDTO(toppingService.findById(id).orElse(null));
+            return new ResponseEntity<>(dto, HttpStatus.FOUND);
+        }
     }
 
     @Override
     @DeleteMapping(path = {"/{id}/delete", "/{id}"})
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteToppingById(@PathVariable("id") Long id) {
-        toppingService.deleteById(id);
+    public ResponseEntity<?> deleteToppingById(@PathVariable("id") Long id) {
+        if (!toppingService.checkId(id)) {
+            return new ResponseEntity<>("The topping you are trying to delete is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            // Delete topping by id from service.
+            toppingService.deleteById(id);
+            return new ResponseEntity<>("Topping deleted successfully.", HttpStatus.OK);
+        }
     }
 
     @Override
@@ -55,9 +65,14 @@ public class ToppingControllerImpl implements ToppingController {
     @Override
     @PutMapping(path = {"/{id}/update", "/{id}"})
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ToppingDTO updateTopping(@RequestBody ToppingDTO toppingDTO, @PathVariable("id") Long id) {
-        Topping topping = toppingMapper.asEntity(toppingDTO);
-        // Update topping from service and map it as DTO.
-        return toppingMapper.asDTO(toppingService.update(topping, id));
+    public ResponseEntity<?> updateTopping(@RequestBody ToppingDTO toppingDTO, @PathVariable("id") Long id) {
+        if (!toppingService.checkId(id)) {
+            return new ResponseEntity<>("The topping you are trying to update is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            Topping topping = toppingMapper.asEntity(toppingDTO);
+            // Update topping from service and map it as DTO.
+            ToppingDTO dto = toppingMapper.asDTO(toppingService.update(topping, id));
+            return new ResponseEntity<>(dto, HttpStatus.ACCEPTED);
+        }
     }
 }

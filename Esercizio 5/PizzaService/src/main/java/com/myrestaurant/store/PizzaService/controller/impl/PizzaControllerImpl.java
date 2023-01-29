@@ -10,6 +10,7 @@ import com.myrestaurant.store.PizzaService.model.RestaurantIds;
 import com.myrestaurant.store.PizzaService.service.PizzaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,34 +37,50 @@ public class PizzaControllerImpl implements PizzaController {
 
     @Override
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public PizzaDTO findPizzaById(@PathVariable("id") Long id) {
-        Pizza pizza = pizzaService.findById(id).orElse(null);
-        return pizzaMapper.asDTO(pizza);
+    public ResponseEntity<?> findPizzaById(@PathVariable("id") Long id) {
+        if (!pizzaService.checkId(id)) {
+            return new ResponseEntity<>("The pizza you are trying to find is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            // Find pizza by ID from service and map as DTO.
+            return new ResponseEntity<>(pizzaMapper.asDTO(pizzaService.findById(id).orElse(null)), HttpStatus.FOUND);
+        }
     }
 
     @Override
     @DeleteMapping(path = {"/{id}/delete", "/{id}"})
-    @ResponseStatus(HttpStatus.OK)
-    public void deletePizzaById(@PathVariable("id") Long id) {
-        pizzaService.deleteById(id);
+    public ResponseEntity<?> deletePizzaById(@PathVariable("id") Long id) {
+        if (!pizzaService.checkId(id)) {
+            return new ResponseEntity<>("The pizza you are trying to delete is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            // Delete pizza from service.
+            pizzaService.deleteById(id);
+            return new ResponseEntity<>("Pizza deleted successfully.", HttpStatus.OK);
+        }
     }
 
     @Override
     @GetMapping
     @ResponseStatus(HttpStatus.FOUND)
-    public List<PizzaDTO> findAllPizzas() {
-        // Find all pizzas from service and map as DTO.
-        return pizzaMapper.asDTOList(pizzaService.findAll());
+    public ResponseEntity<?> findAllPizzas() {
+        if (pizzaService.findAll().isEmpty()) {
+            return new ResponseEntity<>("There are no pizzas in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            // Find all pizzas from service and map as DTO.
+            return new ResponseEntity<>(pizzaMapper.asDTOList(pizzaService.findAll()), HttpStatus.FOUND);
+        }
     }
 
     @Override
     @PutMapping(path = {"/{id}/update", "/{id}"})
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public PizzaDTO updatePizza(@RequestBody PizzaDTO pizzaDTO, @PathVariable("id") Long id) {
-        Pizza pizza = pizzaMapper.asEntity(pizzaDTO);
-        // Update pizza from service and map it as DTO.
-        return pizzaMapper.asDTO(pizzaService.update(pizza, id));
+    public ResponseEntity<?> updatePizza(@RequestBody PizzaDTO pizzaDTO, @PathVariable("id") Long id) {
+        if (!pizzaService.checkId(id)) {
+            return new ResponseEntity<>("The pizza you are trying to update is not in this database.", HttpStatus.NOT_FOUND);
+        } else {
+            Pizza pizza = pizzaMapper.asEntity(pizzaDTO);
+            // Update pizza from service and map it as DTO.
+            PizzaDTO dto = pizzaMapper.asDTO(pizzaService.update(pizza, id));
+            return new ResponseEntity<>(dto, HttpStatus.ACCEPTED);
+        }
     }
 
     @Override

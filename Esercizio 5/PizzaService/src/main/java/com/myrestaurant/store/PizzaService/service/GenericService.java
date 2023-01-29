@@ -17,4 +17,6 @@ public interface GenericService<E, M> {
 
     E update(E entity, M id);
 
+    boolean checkId(Long id);
+
 }

@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private final RestaurantRepository repository;
+    private final RestaurantRepository restaurantRepository;
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -32,27 +32,27 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant save(Restaurant entity) {
-        return repository.save(entity);
+        return restaurantRepository.save(entity);
     }
 
     @Override
     public List<Restaurant> save(List<Restaurant> entities) {
-        return repository.saveAll(entities);
+        return restaurantRepository.saveAll(entities);
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        restaurantRepository.deleteById(id);
     }
 
     @Override
     public Optional<Restaurant> findById(Long id) {
-        return repository.findById(id);
+        return restaurantRepository.findById(id);
     }
 
     @Override
     public List<Restaurant> findAll() {
-        return repository.findAll();
+        return restaurantRepository.findAll();
     }
 
     @Override
@@ -72,9 +72,14 @@ public class RestaurantServiceImpl implements RestaurantService {
             if (entity.getDrivers() != null) {
                 optionalRestaurant.get().setDrivers(entity.getDrivers());
             }
-            return save(optionalRestaurant.get());
+            save(optionalRestaurant.get());
         }
-        return null;
+        return optionalRestaurant.get();
+    }
+
+    @Override
+    public boolean checkId(Long id) {
+        return restaurantRepository.existsById(id);
     }
 
     @Override
@@ -84,10 +89,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void addPizzasToRestaurantSync(List<RestaurantIdsDTO> restaurantIdsDTOS) {
+    public List<Object> addPizzasToRestaurantSync(List<RestaurantIdsDTO> restaurantIdsDTOS) {
         // Sync call
         RestTemplate restTemplate = new RestTemplate();
-        List<Object> result = List.of(Objects.requireNonNull(restTemplate.postForObject(pizzaServiceUrl, restaurantIdsDTOS, Object[].class)));
+        return List.of(Objects.requireNonNull(restTemplate.postForObject(pizzaServiceUrl, restaurantIdsDTOS, Object[].class)));
     }
 
     @Override
@@ -95,12 +100,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         // Sync call
         RestTemplate restTemplate = new RestTemplate();
         String uri = pizzaServiceUrl + "/" + id;
-        List<Object> result = List.of(Objects.requireNonNull(
-                restTemplate.getForObject(
-                        uri,
-                        Object[].class)));
-        return result;
+        return List.of(Objects.requireNonNull(restTemplate.getForObject(uri, Object[].class)));
     }
-
 
 }
