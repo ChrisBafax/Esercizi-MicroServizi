@@ -5,36 +5,38 @@ import com.myrestaurant.store.pizzarestaurantservice.dto.ToppingDTO;
 import com.myrestaurant.store.pizzarestaurantservice.model.Pizza;
 import com.myrestaurant.store.pizzarestaurantservice.model.Restaurant;
 import com.myrestaurant.store.pizzarestaurantservice.model.Topping;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.processing.Generated;
+
 import org.springframework.stereotype.Component;
 
 @Generated(
-    value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-01-25T09:33:35+0100",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
+        value = "org.mapstruct.ap.MappingProcessor",
+        date = "2023-01-25T09:33:35+0100",
+        comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
 public class PizzaMapperImpl implements PizzaMapper {
 
     @Override
     public Pizza asEntity(PizzaDTO dto) {
-        if ( dto == null ) {
+        if (dto == null) {
             return null;
         }
 
         Pizza.PizzaBuilder pizza = Pizza.builder();
 
-        pizza.id( dto.getId() );
-        pizza.name( dto.getName() );
-        pizza.favourite( dto.isFavourite() );
-        pizza.toppings( toppingDTOSetToToppingSet( dto.getToppings() ) );
+        pizza.id(dto.getId());
+        pizza.name(dto.getName());
+        pizza.favourite(dto.isFavourite());
+        pizza.toppings(toppingDTOSetToToppingSet(dto.getToppings()));
         Set<Restaurant> set1 = dto.getRestaurants();
-        if ( set1 != null ) {
-            pizza.restaurants( new LinkedHashSet<Restaurant>( set1 ) );
+        if (set1 != null) {
+            pizza.restaurants(new LinkedHashSet<Restaurant>(set1));
         }
 
         return pizza.build();
@@ -42,21 +44,21 @@ public class PizzaMapperImpl implements PizzaMapper {
 
     @Override
     public PizzaDTO asDTO(Pizza entity) {
-        if ( entity == null ) {
+        if (entity == null) {
             return null;
         }
 
         PizzaDTO.PizzaDTOBuilder pizzaDTO = PizzaDTO.builder();
 
-        if ( entity.getId() != null ) {
-            pizzaDTO.id( entity.getId() );
+        if (entity.getId() != null) {
+            pizzaDTO.id(entity.getId());
         }
-        pizzaDTO.name( entity.getName() );
-        pizzaDTO.favourite( entity.isFavourite() );
-        pizzaDTO.toppings( toppingSetToToppingDTOSet( entity.getToppings() ) );
+        pizzaDTO.name(entity.getName());
+        pizzaDTO.favourite(entity.isFavourite());
+        pizzaDTO.toppings(toppingSetToToppingDTOSet(entity.getToppings()));
         Set<Restaurant> set1 = entity.getRestaurants();
-        if ( set1 != null ) {
-            pizzaDTO.restaurants( new LinkedHashSet<Restaurant>( set1 ) );
+        if (set1 != null) {
+            pizzaDTO.restaurants(new LinkedHashSet<Restaurant>(set1));
         }
 
         return pizzaDTO.build();
@@ -64,13 +66,13 @@ public class PizzaMapperImpl implements PizzaMapper {
 
     @Override
     public List<Pizza> asEntityList(List<PizzaDTO> dtoList) {
-        if ( dtoList == null ) {
+        if (dtoList == null) {
             return null;
         }
 
-        List<Pizza> list = new ArrayList<Pizza>( dtoList.size() );
-        for ( PizzaDTO pizzaDTO : dtoList ) {
-            list.add( asEntity( pizzaDTO ) );
+        List<Pizza> list = new ArrayList<Pizza>(dtoList.size());
+        for (PizzaDTO pizzaDTO : dtoList) {
+            list.add(asEntity(pizzaDTO));
         }
 
         return list;
@@ -78,67 +80,67 @@ public class PizzaMapperImpl implements PizzaMapper {
 
     @Override
     public List<PizzaDTO> asDTOList(List<Pizza> entityList) {
-        if ( entityList == null ) {
+        if (entityList == null) {
             return null;
         }
 
-        List<PizzaDTO> list = new ArrayList<PizzaDTO>( entityList.size() );
-        for ( Pizza pizza : entityList ) {
-            list.add( asDTO( pizza ) );
+        List<PizzaDTO> list = new ArrayList<PizzaDTO>(entityList.size());
+        for (Pizza pizza : entityList) {
+            list.add(asDTO(pizza));
         }
 
         return list;
     }
 
     protected Topping toppingDTOToTopping(ToppingDTO toppingDTO) {
-        if ( toppingDTO == null ) {
+        if (toppingDTO == null) {
             return null;
         }
 
         Topping.ToppingBuilder topping = Topping.builder();
 
-        if ( toppingDTO.getId() != null ) {
-            topping.id( toppingDTO.getId() );
+        if (toppingDTO.getId() != null) {
+            topping.id(toppingDTO.getId());
         }
-        topping.name( toppingDTO.getName() );
+        topping.name(toppingDTO.getName());
 
         return topping.build();
     }
 
     protected Set<Topping> toppingDTOSetToToppingSet(Set<ToppingDTO> set) {
-        if ( set == null ) {
+        if (set == null) {
             return null;
         }
 
-        Set<Topping> set1 = new LinkedHashSet<Topping>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( ToppingDTO toppingDTO : set ) {
-            set1.add( toppingDTOToTopping( toppingDTO ) );
+        Set<Topping> set1 = new LinkedHashSet<Topping>(Math.max((int) (set.size() / .75f) + 1, 16));
+        for (ToppingDTO toppingDTO : set) {
+            set1.add(toppingDTOToTopping(toppingDTO));
         }
 
         return set1;
     }
 
     protected ToppingDTO toppingToToppingDTO(Topping topping) {
-        if ( topping == null ) {
+        if (topping == null) {
             return null;
         }
 
         ToppingDTO.ToppingDTOBuilder toppingDTO = ToppingDTO.builder();
 
-        toppingDTO.id( topping.getId() );
-        toppingDTO.name( topping.getName() );
+        toppingDTO.id(topping.getId());
+        toppingDTO.name(topping.getName());
 
         return toppingDTO.build();
     }
 
     protected Set<ToppingDTO> toppingSetToToppingDTOSet(Set<Topping> set) {
-        if ( set == null ) {
+        if (set == null) {
             return null;
         }
 
-        Set<ToppingDTO> set1 = new LinkedHashSet<ToppingDTO>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( Topping topping : set ) {
-            set1.add( toppingToToppingDTO( topping ) );
+        Set<ToppingDTO> set1 = new LinkedHashSet<ToppingDTO>(Math.max((int) (set.size() / .75f) + 1, 16));
+        for (Topping topping : set) {
+            set1.add(toppingToToppingDTO(topping));
         }
 
         return set1;
